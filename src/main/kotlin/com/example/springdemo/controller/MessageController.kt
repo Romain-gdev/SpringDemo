@@ -29,15 +29,19 @@ class MessageController(val service : MessageService) {
         return ResponseEntity.ok(message)
     }
 
-    @PostMapping(value = arrayOf("/createMessage"))
+    @PostMapping("/createMessage")
     fun addMessage(addedMessage : Message) : ResponseEntity<Any> {
-        val message : Message?
-        message = messageDao.save(addedMessage)
-        if(message == null) return ResponseEntity(hashMapOf<String,String>(Pair("message","not created")),HttpStatus.NOT_MODIFIED)
+        if(addedMessage.id?.let { messageDao.existsById(it) } == false) return ResponseEntity(hashMapOf<String,String>(Pair("message","not created")),HttpStatus.BAD_REQUEST)
+        messageDao.save(addedMessage)
         return ResponseEntity(hashMapOf<String,String>(Pair("message","created")),HttpStatus.CREATED)
-
     }
-    
+
+    @DeleteMapping("delete/{id}")
+    fun deleteMessage(@PathVariable id: String) : ResponseEntity<Any> {
+        if(!messageDao.existsById(id)) return ResponseEntity(hashMapOf<String,String>(Pair("message","not found")),HttpStatus.NOT_FOUND)
+        messageDao.deleteById(id)
+        return ResponseEntity(hashMapOf<String,String>(Pair("message","deleted")),HttpStatus.OK)
+    }
 
     @PostMapping
     fun post(@RequestBody message: Message) {
