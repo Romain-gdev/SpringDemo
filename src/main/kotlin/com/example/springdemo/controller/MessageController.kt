@@ -31,20 +31,18 @@ class MessageController(val service : MessageService) {
 
     @PostMapping("/createMessage")
     fun addMessage(addedMessage : Message) : ResponseEntity<Any> {
-        if(addedMessage.id?.let { messageDao.existsById(it) } == false) return ResponseEntity(hashMapOf<String,String>(Pair("message","not created")),HttpStatus.BAD_REQUEST)
+        if(addedMessage.id?.let { messageDao.existsById(it) } == false) return ResponseEntity(hashMapOf<String,String>(Pair("message","not created for create")),HttpStatus.BAD_REQUEST)
         messageDao.save(addedMessage)
         return ResponseEntity(hashMapOf<String,String>(Pair("message","created")),HttpStatus.CREATED)
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     fun deleteMessage(@PathVariable id: String) : ResponseEntity<Any> {
-        if(!messageDao.existsById(id)) return ResponseEntity(hashMapOf<String,String>(Pair("message","not found")),HttpStatus.NOT_FOUND)
+        if(!messageDao.existsById(id)) return ResponseEntity(hashMapOf<String,String>(Pair("message","not found for delete")),HttpStatus.NOT_FOUND)
+        val message : Message ?
+        message = messageDao.getReferenceById(id)
         messageDao.deleteById(id)
-        return ResponseEntity(hashMapOf<String,String>(Pair("message","deleted")),HttpStatus.OK)
+        return ResponseEntity.ok(message)
     }
 
-    @PostMapping
-    fun post(@RequestBody message: Message) {
-        service.save(message)
-    }
 }

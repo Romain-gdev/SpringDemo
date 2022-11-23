@@ -8,6 +8,9 @@ plugins {
     kotlin("plugin.jpa") version "1.6.21"
 }
 
+var springfoxVersion = "3.0.0"
+var springfoxUiVersion = "3.0.0"
+
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -26,7 +29,10 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("io.springfox:springfox-swagger2:${springfoxVersion}")
+    implementation("io.springfox:springfox-swagger-ui:${springfoxUiVersion}")
 }
+
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
