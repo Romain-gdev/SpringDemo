@@ -9,3 +9,12 @@ Content-Type: application/json
 
 ### Delete this message created
 DELETE http://localhost:8080/delete/1
+
+### Modify the message
+PUT http://localhost:8080/message/1
+Content-Type: application/json
+
+{
+  "id":"1",
+  "text":"texte modifié"
+}

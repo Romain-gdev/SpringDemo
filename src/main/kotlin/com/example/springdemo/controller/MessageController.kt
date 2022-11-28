@@ -61,4 +61,16 @@ class MessageController{
      return ResponseEntity.ok(message)
     }
 
+ @PutMapping("/message/{id}")
+    fun modifyMessage(@RequestBody message: Message) : ResponseEntity<Any> {
+
+         if(message == null){
+         return ResponseEntity(
+             hashMapOf<String,String>(Pair("message","not found /!/ Can't Modify !")),
+             HttpStatus.NOT_FOUND)
+        }
+        messageDao.save(message)
+        return ResponseEntity.ok(message)
+    }
+
 }
