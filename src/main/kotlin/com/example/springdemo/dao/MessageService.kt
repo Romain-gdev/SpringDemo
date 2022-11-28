@@ -14,6 +14,9 @@ class MessageService(val db : MessageRepository) {
     fun save(message: Message) {
         db.save(message)
     }
+    fun delete(id : String) {
+        db.deleteById(id)
+    }
     fun <T : Any> Optional<out T>.toList(): List<T> =
         if (isPresent) listOf(get()) else emptyList()
 

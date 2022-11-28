@@ -8,5 +8,5 @@ import java.util.*
 @Repository
 interface MessageDao: JpaRepository<Message, String> {
     override fun findById(id: String): Optional<Message>
-    override fun <S : Message> save(entity: S): S
+
 }
