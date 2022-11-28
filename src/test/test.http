@@ -1,0 +1,11 @@
+### Create message with id 1
+POST http://localhost:8080/message
+Content-Type: application/json
+
+{
+  "id": "1",
+  "text":"Message 1"
+}
+
+### Delete this message created
+DELETE http://localhost:8080/delete/1
