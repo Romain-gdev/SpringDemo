@@ -1,14 +1,12 @@
 package com.example.springdemo.controller
 
 import com.example.springdemo.dao.MessageDao
-import com.example.springdemo.dao.MessageService
 import com.example.springdemo.model.Message
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 import io.swagger.annotations.Example
 import io.swagger.annotations.ExampleProperty
 import io.swagger.v3.oas.annotations.Operation
-import org.apache.coyote.Response
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -44,7 +42,7 @@ class MessageController{
                 HttpStatus.BAD_GATEWAY)
         return ResponseEntity.ok(message)
     }
-
+    @Operation
     @PostMapping("/message")
     fun addMessage(@RequestBody addedMessage : Message) : ResponseEntity<Any> {
        if(addedMessage.id?.let { messageDao.findById(it) } == ResponseEntity.ok()){
@@ -55,7 +53,7 @@ class MessageController{
         messageDao.save(addedMessage)
         return ResponseEntity.ok(addedMessage)
     }
-
+    @Operation
  @DeleteMapping("/delete/{id}")
     fun deleteMessage(@PathVariable id: String) : ResponseEntity<Any> {
 
@@ -69,7 +67,7 @@ class MessageController{
         messageDao.deleteById(id)
      return ResponseEntity.ok(message)
     }
-
+@Operation
  @PutMapping("/message/{id}")
     fun modifyMessage(@RequestBody message: Message) : ResponseEntity<Any> {
 
