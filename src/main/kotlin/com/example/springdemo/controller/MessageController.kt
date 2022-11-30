@@ -5,6 +5,8 @@ import com.example.springdemo.dao.MessageService
 import com.example.springdemo.model.Message
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
+import io.swagger.annotations.Example
+import io.swagger.annotations.ExampleProperty
 import io.swagger.v3.oas.annotations.Operation
 import org.apache.coyote.Response
 import org.springframework.beans.factory.annotation.Autowired
@@ -29,8 +31,10 @@ class MessageController{
     )
 
     @Operation
-    @ApiResponses(value = arrayOf(ApiResponse(code =200, message = "{\"id\": \"message\"}")))
     @GetMapping("/{id}")
+    @ApiResponses(value = arrayOf(ApiResponse(code =200, message = "o",examples = Example(ExampleProperty("{\n \"id\" :\"1\" \n \"message\" :\"message 1\" \n}"))),
+        ApiResponse(code =502, message = "Not found",examples = Example(ExampleProperty("{\"message\" :\"not found\" \n}")))
+            ))
     fun index(@PathVariable id: String): ResponseEntity<Any> {
         var message : Message?
         message =messageDao.findById(id = id).orElse(null)
