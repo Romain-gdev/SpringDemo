@@ -3,6 +3,9 @@ package com.example.springdemo.controller
 import com.example.springdemo.dao.MessageDao
 import com.example.springdemo.dao.MessageService
 import com.example.springdemo.model.Message
+import io.swagger.annotations.ApiResponse
+import io.swagger.annotations.ApiResponses
+import io.swagger.v3.oas.annotations.Operation
 import org.apache.coyote.Response
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -25,6 +28,8 @@ class MessageController{
         Message("3", "Privet!"),
     )
 
+    @Operation
+    @ApiResponses(value = arrayOf(ApiResponse(code =200, message = "{\"id\": \"message\"}")))
     @GetMapping("/{id}")
     fun index(@PathVariable id: String): ResponseEntity<Any> {
         var message : Message?
