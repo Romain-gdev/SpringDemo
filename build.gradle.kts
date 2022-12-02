@@ -32,6 +32,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("io.springfox:springfox-swagger2:${springfoxVersion}")
     implementation("io.springfox:springfox-swagger-ui:${springfoxUiVersion}")
+    implementation("com.opencsv:opencsv:5.7.1")
 }
 
 

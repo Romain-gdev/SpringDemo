@@ -79,8 +79,8 @@ class MessageController{
     }
 
     @Operation(summary = "create Message", description = "create a new Message")
-    @ApiResponses(ApiResponse(responseCode = "200",
-        description = "OK", content = [
+    @ApiResponses(ApiResponse(responseCode = "201",
+        description = "Created", content = [
             Content(mediaType = "application/json", schema = Schema(implementation = Message::class))
         ]),
         ApiResponse(responseCode = "402",
