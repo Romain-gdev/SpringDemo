@@ -30,12 +30,7 @@ class MessageController{
 
     @Operation(summary = "Home page", description = "Home page / Welcome Page")
     @GetMapping
-    fun index(): List<Message> = emptyList()
-        /*listOf(
-        Message("1", "Hello!"),
-        Message("2", "Welcome to"),
-        Message("3", "Message Api!"),
-    )*/
+    fun index(): List<Message> = messageDao.findAll()
 
     @Operation(summary = "Get Message", description = "Get a message by sending id to server")
     @Parameter(name="id", description = "Message id")

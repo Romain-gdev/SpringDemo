@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 class TaskService {
 
     fun execute(task: String){
-        logger.info("do $task")
+        logger.info("$task")
     }
 
     companion object {

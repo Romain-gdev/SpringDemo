@@ -10,4 +10,4 @@ import javax.persistence.Id
  */
 @Schema(name="Message", description = "A simple Message with an Id and a description (text)")
 @Entity
-data class Message(@Id val id : String?, val text: String)
+data class Message(@Id var id : String?, val text: String)
