@@ -44,7 +44,7 @@ class EntryPointsTests {
     fun postMessageOK() {
         mockMvc.perform(
             MockMvcRequestBuilders
-                .post("/message")
+                .post("/message/message")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(Message("1", "text1")))

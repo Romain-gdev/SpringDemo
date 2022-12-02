@@ -15,12 +15,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.springframework.data.repository.query.Param
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.lang.Byte.decode
 
 /**
  * MessageController Class
  * @property [service] a MessageService
  * */
 @RestController
+@RequestMapping("/message")
 class MessageController{
     @Autowired
     private lateinit var messageDao: MessageDao
@@ -28,11 +30,12 @@ class MessageController{
 
     @Operation(summary = "Home page", description = "Home page / Welcome Page")
     @GetMapping
-    fun index(): List<Message> = listOf(
+    fun index(): List<Message> = emptyList()
+        /*listOf(
         Message("1", "Hello!"),
         Message("2", "Welcome to"),
         Message("3", "Message Api!"),
-    )
+    )*/
 
     @Operation(summary = "Get Message", description = "Get a message by sending id to server")
     @Parameter(name="id", description = "Message id")
@@ -89,10 +92,10 @@ class MessageController{
        if(addedMessage.id?.let { messageDao.findById(it) } == ResponseEntity.ok()){
            return ResponseEntity(
                hashMapOf<String,String>(Pair("message","not created ! A message with this id already exists")),
-               HttpStatus.BAD_GATEWAY)
+               HttpStatus.CONFLICT)
        }
         messageDao.save(addedMessage)
-        return ResponseEntity.ok(addedMessage)
+        return ResponseEntity(addedMessage,HttpStatus.CREATED)
     }
     @Operation(summary = "delete Message", description = "delete Message by sending id to server")
     @ApiResponses(ApiResponse(responseCode = "200",
