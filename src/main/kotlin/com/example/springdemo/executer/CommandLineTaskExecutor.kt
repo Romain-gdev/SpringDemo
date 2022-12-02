@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import com.opencsv.CSVReader
 import java.io.FileReader
-import java.io.InputStream
-import java.nio.charset.StandardCharsets
 
 @Profile("!test")
 @ConditionalOnProperty(
@@ -25,17 +23,17 @@ class CommandLineTaskExecutor(private val taskService: TaskService): CommandLine
     private lateinit var messageDao: MessageDao
 
     fun readCsvAndSave() {
-        val fileName = "utils/data.csv"
-        val fileReader = FileReader(fileName,StandardCharsets.UTF_8)
+        val fileName = this::class.java.classLoader.getResource("data.csv")?.file
+        val fileReader = fileName?.let { FileReader(it) }
 
         fileReader.use {
             val reader = CSVReader(fileReader)
             reader.use {r ->
                 var line = r.readNext()
                 while(line!=null){
-                    line.forEach {
-                        print("it")
-                    }
+
+                        print("${line[1]}")
+
                     line = r.readNext()
                 }
             }
