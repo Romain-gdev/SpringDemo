@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class TaskService {
-    
+
     fun execute(task: String){
         logger.info("do $task")
     }
