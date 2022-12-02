@@ -114,6 +114,4 @@ class MessageController{
         messageDao.deleteById(id)
      return ResponseEntity.ok(message)
     }
-
-
 }
